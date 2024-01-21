@@ -1,9 +1,18 @@
+【使用リポジトリについて】
+・
+・
+
+
+
 【環境構築について】
 1. フォルダを作成し、下記のような配置にします。
 pinos_room(任意の名前)
     ├── backend
     ├── frontend
     └── docker-compose.yml
+
+※docker-compose.ymlはbackendリポジトリに配置されているため、上記のように移動する。
+
 
 
 2. pinos_roomディレクトリにて、初回ビルドコマンドを実行します。

@@ -1,0 +1,44 @@
+# docker-composeのバージョン
+version: '3.9'
+
+# コンテナ定義
+services:
+  frontend:
+    # コンテナ名
+    container_name: "frontend"
+    # コンテナの作成に使用するDockerfileのパス
+    build:
+      context: .
+      dockerfile: "./frontend/Dockerfile"
+    # srcディレクトリ内のファイルをコンテナ内の~/app配下にマウント
+    volumes:
+      - "./frontend/src:/app"
+    command: 'yarn dev'
+    ports:
+      - "3000:3000"
+    stdin_open: true
+
+  backend:
+    # コンテナの作成に使用するDockerfileのパス
+    build:
+      context: .
+      dockerfile: "./backend/Dockerfile"
+    # ホスト側のポート:コンテナ側のポートを指定
+    ports:
+      - "8080:8080"
+    # src配下のファイルをコンテナ内の~/var/www配下に配置
+    volumes:
+      - "./backend/src:/var/www"
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - "mysql-volume:/var/lib/mysql"
+    environment:
+      MYSQL_DATABASE: "pinos_db"
+      MYSQL_ROOT_PASSWORD: "password"
+volumes:
+  mysql-volume:
+
